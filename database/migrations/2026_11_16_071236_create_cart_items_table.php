@@ -18,6 +18,10 @@ return new class extends Migration
             $table->integer('quantity')->default(1);
             $table->timestamps();
         });
+
+        Schema::table('cart_items', function (Blueprint $table) {
+            $table->decimal('price', 10, 2)->after('quantity');
+        });
     }
 
     /**

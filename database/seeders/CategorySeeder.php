@@ -15,11 +15,12 @@ class CategorySeeder extends Seeder
     {
         //
         $categories = [
-            ['name' => 'GPU', 'description' => 'High-performance graphics cards for gaming and professional use.'],
-            ['name' => 'CPU', 'description' => 'Powerful CPUs for desktops and laptops.'],
-            ['name' => 'Motherboards', 'description' => 'Reliable motherboards for various platforms.'],
-            ['name' => 'Memory (RAM)', 'description' => 'High-speed RAM modules for improved performance.'],
-            ['name' => 'Storage Devices', 'description' => 'SSDs and HDDs for fast and reliable storage.'],
+            ['name' => 'GPU', 'description' => 'Graphics Processing Units (dipakai untuk gaming dan pekerjaan profesional).'],
+            ['name' => 'CPU', 'description' => 'Central Processing Units (otak dari komputer).'],
+            ['name' => 'PSU', 'description' => 'Power Supply Unit (memberikan listrik keseluruh perangkat keras).'],
+            ['name' => 'Motherboards', 'description' => 'Perangkat keras yang menghubungkan seluruh perangkat keras lainnya.'],
+            ['name' => 'Memory (RAM)', 'description' => 'Random Access Memory (Modul RAM berkecepatan tinggi untuk kinerja yang lebih baik).'],
+            ['name' => 'Storage Devices', 'description' => 'SSD (Solid State Drive) dan HDD (Hard Disk Drive) untuk penyimpanan yang cepat dan andal.'],
         ];
 
         foreach ($categories as $category) {
