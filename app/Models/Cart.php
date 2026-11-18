@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Cart extends Model
 {
     //
-    use hasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
     ];
-    
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -25,11 +25,20 @@ class Cart extends Model
     {
         return $this->hasMany(CartItem::class);
     }
-    public function getTotalAttribute()
+
+    /**
+     * Alias for cartItems to ensure compatibility.
+     */
+    public function items(): HasMany
     {
-    return $this->cartItems->sum(function ($item) {
-        // We'll also address where price comes from below!
-        return $item->product->price * $item->quantity; 
+        return $this->cartItems();
+    }
+
+    public function getTotalAttribute(): float
+    {
+        return (float) $this->cartItems->sum(function ($item) {
+            $price = $item->product ? $item->product->price : ($item->price ?? 0);
+            return $price * $item->quantity;
         });
     }
 }

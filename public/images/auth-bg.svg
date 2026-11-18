@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="40%" stop-color="#0f172a"/>
+      <stop offset="80%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#172554"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glow2" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#334155" stroke-width="0.8" stroke-opacity="0.25"/>
+      <circle cx="60" cy="0" r="1.5" fill="#3b82f6" fill-opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- Deep Dark Base -->
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <!-- Ambient Glow Orbs -->
+  <circle cx="20%" cy="30%" r="500" fill="url(#glow1)"/>
+  <circle cx="85%" cy="75%" r="600" fill="url(#glow2)"/>
+  <circle cx="50%" cy="10%" r="350" fill="url(#glow1)"/>
+
+  <!-- Tech Geometric Circuit Mesh -->
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+
+  <!-- Tech Polygon Elements -->
+  <path d="M 0 350 L 500 0 L 800 0 L 0 600 Z" fill="#1e293b" fill-opacity="0.12"/>
+  <path d="M 1920 700 L 1400 1080 L 1050 1080 L 1920 450 Z" fill="#1e293b" fill-opacity="0.12"/>
+  <path d="M 300 1080 L 700 800 L 950 1080 Z" fill="#2563eb" fill-opacity="0.05"/>
+</svg>

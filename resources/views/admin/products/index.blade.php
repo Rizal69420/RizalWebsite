@@ -1,74 +1,99 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Manage Products') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <div class="flex justify-between mb-4">
-                    <h3 class="text-lg font-bold">Product Inventory</h3>
-                    <a href="{{ route('admin.products.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add New Product</a>
+    <div class="max-w-6xl mx-auto">
+        <!-- Card Container (Matching Reference Image) -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <!-- Card Header: Title on Left, Action on Right -->
+            <div class="px-6 py-4 border-b border-gray-200 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-blue-600 text-xl font-bold"></span>
+                    <h2 class="text-xl font-bold text-blue-600">Daftar Produk</h2>
                 </div>
+                <a href="{{ route('admin.products.create') }}" class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm shadow-sm transition">
+                    <span>+</span>
+                    <span>Tambah Produk</span>
+                </a>
+            </div>
 
-                @if(session('success'))
-                    <div class="mb-4 bg-green-100 text-green-700 p-3 rounded">{{ session('success') }}</div>
-                @endif
-
-                <table class="w-full border-collapse border border-gray-200">
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border border-gray-300 p-2 text-center w-20">Image</th>
-                            <th class="border border-gray-300 p-2 text-left">Name</th>
-                            <th class="border border-gray-300 p-2 text-left">Category</th>
-                            <th class="border border-gray-300 p-2 text-left">Brand</th>
-                            <th class="border border-gray-300 p-2 text-right">Price</th>
-                            <th class="border border-gray-300 p-2 text-center">Stock</th>
-                            <th class="border border-gray-300 p-2 text-center">Actions</th>
+                        <tr class="border-b border-gray-200 font-bold text-sm text-gray-800 bg-gray-50/50">
+                            <th class="py-3.5 px-4 w-20 text-center">Foto</th>
+                            <th class="py-3.5 px-4">Nama Produk</th>
+                            <th class="py-3.5 px-4">Kategori</th>
+                            <th class="py-3.5 px-4">Brand</th>
+                            <th class="py-3.5 px-4 text-right">Harga</th>
+                            <th class="py-3.5 px-4 text-center">Stok</th>
+                            <th class="py-3.5 px-4 text-center">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-gray-200 text-sm">
                         @forelse($products as $product)
-                            <tr>
-                                <td class="border border-gray-300 p-2 text-center">
+                            <tr class="hover:bg-gray-50/70 transition-colors">
+                                <td class="py-3 px-4 text-center">
                                     @if($product->image)
                                         <img src="{{ asset('storage/' . $product->image) }}" 
-                                            alt="{{ $product->name }}" 
-                                            class="w-16 h-16 object-cover rounded mx-auto border">
+                                             alt="{{ $product->name }}" 
+                                             class="w-12 h-12 object-cover rounded-lg border border-gray-200 mx-auto">
                                     @else
-                                        <div class="w-16 h-16 bg-gray-200 text-gray-400 text-xs flex items-center justify-center rounded mx-auto">
-                                            No Image
+                                        <div class="w-12 h-12 rounded-lg bg-gray-100 text-gray-400 text-xs flex items-center justify-center mx-auto border border-gray-200">
+                                            No Foto
                                         </div>
                                     @endif
                                 </td>
-                                <td class="border border-gray-300 p-2 font-medium">{{ $product->name }}</td>
-                                <td class="border border-gray-300 p-2">{{ $product->category->name ?? 'N/A' }}</td>
-                                <td class="border border-gray-300 p-2">{{ $product->brand->name ?? 'N/A' }}</td>
-                                <td class="border border-gray-300 p-2 text-right">RP{{ number_format($product->price, 2) }}</td>
-                                <td class="border border-gray-300 p-2 text-center">{{ $product->stock }}</td>
-                                <td class="border border-gray-300 p-2 text-center">
-                                    <a href="{{ route('admin.products.edit', $product) }}" class="text-indigo-600 hover:underline mr-2">Edit</a>
-                                    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="inline">
+                                <td class="py-3 px-4 font-semibold text-gray-900">
+                                    {{ $product->name }}
+                                </td>
+                                <td class="py-3 px-4 text-gray-600">
+                                    {{ $product->category->name ?? '-' }}
+                                </td>
+                                <td class="py-3 px-4 text-gray-600">
+                                    {{ $product->brand->name ?? '-' }}
+                                </td>
+                                <td class="py-3 px-4 text-right font-bold text-gray-900">
+                                    Rp {{ number_format($product->price, 0, ',', '.') }}
+                                </td>
+                                <td class="py-3 px-4 text-center">
+                                    @if($product->stock <= 0)
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 border border-red-200">
+                                            Stok Habis (Out of Stock)
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 border border-green-200">
+                                            {{ $product->stock }} Tersedia
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="py-3 px-4 text-center space-x-1.5 whitespace-nowrap">
+                                    <a href="{{ route('admin.products.edit', $product) }}" class="inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                        <button type="submit" class="inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 transition">
+                                            Hapus
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center p-4 text-gray-500">No products found in inventory.</td>
+                                <td colspan="7" class="py-12 text-center text-gray-500">
+                                    Tidak ada data produk.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+            </div>
 
-                <div class="mt-4">
+            @if($products->hasPages())
+                <div class="px-6 py-4 border-t border-gray-200">
                     {{ $products->links() }}
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </x-app-layout>
