@@ -8,10 +8,23 @@
                     <span class="text-blue-600 text-xl font-bold"></span>
                     <h2 class="text-xl font-bold text-blue-600">Daftar Produk</h2>
                 </div>
-                <a href="{{ route('admin.products.create') }}" class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm shadow-sm transition">
-                    <span>+</span>
-                    <span>Tambah Produk</span>
-                </a>
+                
+                <!-- Action Buttons Group -->
+                <div class="flex items-center gap-2">
+                    <!-- New API Link Button -->
+                    <a href="{{ url('/api/products') }}" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-4 py-2 rounded-lg text-sm border border-slate-300 shadow-sm transition">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        <span>API JSON</span>
+                    </a>
+
+                    <!-- Existing Tambah Produk Button -->
+                    <a href="{{ route('admin.products.create') }}" class="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm shadow-sm transition">
+                        <span>+</span>
+                        <span>Tambah Produk</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Table -->

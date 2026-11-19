@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -112,5 +113,17 @@ class OrderController extends Controller
         $order->load('orderItems.product');
 
         return view('orders.show', compact('order'));
+    }
+    public function downloadInvoice(Order $order)
+    {
+        if ($order->user_id !== Auth::id() && Auth::user()->role !== 'admin') {
+        abort(403);
+        }
+
+        $order->load(['user', 'orderItems']);
+
+        $pdf = Pdf::loadView('admin.orders.invoice', compact('order'));
+
+        return $pdf->download('RigStore-Invoice-' . $order->id . '.pdf');
     }
 }

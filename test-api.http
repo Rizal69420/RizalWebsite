@@ -1,0 +1,11 @@
+### Get All Products
+GET http://rizalwebsite.test/api/products
+Accept: application/json
+
+### Get Single Product (ID 3)
+GET http://rizalwebsite.test/api/products/3
+Accept: application/json
+
+### Filter Products by Category
+GET http://rizalwebsite.test/api/products?category_id=1
+Accept: application/json

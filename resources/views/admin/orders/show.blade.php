@@ -18,6 +18,9 @@
         <!-- Main: Ordered Items -->
         <div class="lg:col-span-2 space-y-6">
             <x-card title="Purchased Items ({{ $order->orderItems->count() }})">
+                <a href="{{ route('orders.invoice', $order) }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Download PDF Invoice
+                </a>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
