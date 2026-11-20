@@ -87,7 +87,7 @@
                             {{ Auth::user()->name }}
                         </span>
 
-                        <form method="POST" action="{{ route('logout') }}" class="inline m-0">
+                        <form method="POST" action="{{ route('logout') }}" onsubmit="return confirm('Apakah Anda yakin ingin keluar dari RigStore');">
                             @csrf
                             <button type="submit" class="bg-red-500 hover:bg-red-600 active:bg-red-700 text-white text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1 cursor-pointer">
                                 <span>Log Out</span>

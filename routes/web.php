@@ -48,6 +48,10 @@ Route::get('/dashboard', function () {
     return view('dashboard', compact('stats', 'products', 'categories', 'brands'));
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/dashboard', [ProfileController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 // Alias for /shop pointing to the same catalog
 Route::get('/shop', function () {
     return redirect()->route('dashboard');

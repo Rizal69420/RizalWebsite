@@ -281,7 +281,52 @@
                         </div>
                     </div>
                 </div>
+<!-- Latest Tech News Widget (Level 7 API Integration) -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">📰</span>
+                    <h2 class="text-base font-bold text-gray-800">Berita Teknologi & Hardware Terbaru</h2>
+                </div>
+                <span class="text-xs bg-indigo-50 text-indigo-700 font-semibold px-2.5 py-1 rounded-full border border-indigo-200">
+                    Live API Feed
+                </span>
+            </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                @forelse($articles ?? [] as $article)
+                    @php
+                        $image = $article['urlToImage'] ?? $article['thumbnail'] ?? ($article['enclosure']['link'] ?? null);
+                        $link = $article['link'] ?? $article['url'] ?? '#';
+                        $date = $article['pubDate'] ?? $article['publishedAt'] ?? null;
+                    @endphp
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between hover:shadow-sm transition">
+                        <div>
+                            @if(!empty($image))
+                                <img src="{{ $image }}" alt="News" class="w-full h-32 object-cover rounded-lg mb-3" onerror="this.style.display='none'">
+                            @endif
+                            <h3 class="font-bold text-gray-900 text-sm line-clamp-2 mb-1">
+                                {{ $article['title'] ?? $article['name'] }}
+                            </h3>
+                            <p class="text-xs text-gray-500 line-clamp-2">
+                                {{ \Illuminate\Support\Str::limit(strip_tags($article['description'] ?? 'Baca berita selengkapnya mengenai perkembangan teknologi terbaru.'), 120) }}
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
+                            <span class="text-[10px] text-gray-400">
+                                {{ $date ? \Carbon\Carbon::parse($date)->diffForHumans() : 'Baru saja' }}
+                            </span>
+                            <a href="{{ $link }}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-600 hover:underline">
+                                Baca &rarr;
+                            </a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-span-3 text-center py-6 text-gray-400 text-xs">
+                        Feed berita sedang dimuat atau API key belum dikonfigurasi.
+                    </div>
+                @endforelse
+            </div>
                 <!-- Product Catalog Section -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
                     <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
